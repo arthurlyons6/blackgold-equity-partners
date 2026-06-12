@@ -1,0 +1,1 @@
+{"name":"blackgold-backend","version":"1.0.0","private":true,"type":"module","dependencies":{"express":"^4.21.0","cors":"^2.8.5","resend":"^4.0.1"}}

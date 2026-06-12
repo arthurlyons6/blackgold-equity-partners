@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Black Gold Equity Partners — AI-Powered Private Equity</title>
+<meta name="description" content="Black Gold Equity Partners: a private AI operating system for business acquisition, transformation, and exit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #04060E;
+  --navy-surface: #0a0d16;
+  --navy-shadow: #080a12;
+  --gold: #EEC050;
+  --cream: #F2E8D0;
+  --grn: #3DDB78;
+  --red: #F07070;
+  --violet: #A78BFA;
+  --mono: "JetBrains Mono", "SF Mono", monospace;
+  --heading: "Fraunces", "Times New Roman", serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow-1: 0 1px 2px rgba(4,6,14,0.25);
+  --shadow-2: 0 6px 24px rgba(4,6,14,0.3);
+  --shadow-3: 0 18px 60px rgba(4,6,14,0.5);
+  --ease: 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.max { max-width: 1240px; padding: 0 36px; margin: 0 auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(4,6,14,0.72);
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+  backdrop-filter: saturate(140%) blur(18px) contrast(90%);
+  -webkit-backdrop-filter: saturate(140%) blur(18px) contrast(90%);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; gap: 24px;
+}
+.logo {
+  font-family: var(--heading);
+  font-size: 17px; font-weight: 500; letter-spacing: 0.02em;
+  color: var(--cream); white-space: nowrap;
+}
+.logo mark { color: var(--gold); background: none; font-style: italic; }
+.logo a { color: inherit; text-decoration: none; }
+.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: rgba(242,232,208,0.72);
+  transition: color var(--ease);
+  padding: 6px 0; position: relative;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--gold); transform: scaleX(0);
+  transform-origin: right; transition: transform var(--ease-out);
+}
+.nav-links a:hover { color: var(--gold); text-decoration: none; }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-cta {
+  font-family: var(--body);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; white-space: nowrap;
+  padding: 10px 18px;
+  border: 1px solid rgba(238,192,80,0.9);
+  color: var(--gold);
+  border-radius: 8px;
+  background: transparent;
+  transition: background var(--ease), color var(--ease), border-color var(--ease), transform 120ms ease;
+}
+.nav-cta:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); text-decoration: none; transform: translateY(-1px); }
+
+/* Hero */
+.hero {
+  padding: 108px 0 96px;
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+  position: relative;
+  isolation: isolate;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: center;
+}
+.hero h1 {
+  font-family: var(--heading);
+  font-size: clamp(38px, 3.8vw, 62px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+.hero h1 em { color: var(--gold); font-style: italic; }
+.hero p.lead {
+  margin-top: 24px;
+  font-size: 17px;
+  color: rgba(242,232,208,0.72);
+  max-width: 520px;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+}
+.hero-actions {
+  margin-top: 34px;
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 22px; border-radius: 8px;
+  font-family: var(--body);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+  border: none; cursor: pointer;
+  text-decoration: none;
+  transition: transform 120ms ease, box-shadow 160ms ease, background var(--ease), color var(--ease), border-color var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy);
+  box-shadow: var(--shadow-2);
+}
+.btn-primary:hover {
+  background: #f6c44b;
+  box-shadow: var(--shadow-3);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(242,232,208,0.22);
+}
+.btn-ghost:hover {
+  border-color: rgba(242,232,208,0.55);
+  background: rgba(242,232,208,0.04);
+}
+
+/* Command center preview */
+.sys-panel {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.12);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: var(--shadow-2);
+}
+.sys-panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(242,232,208,0.5);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+}
+.sys-status { display: flex; align-items: center; gap: 10px; }
+.sys-status::before {
+  content: "";
+  display: block; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--grn);
+  box-shadow: 0 0 10px rgba(61,219,120,0.5), inset 0 0 0 2px rgba(4,6,14,0.35);
+  animation: pulse 1.8s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.3); }
+}
+.sys-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: rgba(238,192,80,0.07);
+  padding: 1px 0;
+}
+.sys-tile { background: var(--navy-surface); padding: 24px 18px; }
+.sys-metric {
+  font-family: var(--mono);
+  font-size: 28px; font-weight: 700;
+  color: var(--cream);
+  margin-top: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.sys-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(242,232,208,0.48);
+}
+.sys-bar {
+  margin-top: 14px; height: 2px;
+  background: rgba(242,232,208,0.05);
+  border-radius: 2px; overflow: hidden;
+}
+.sys-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), #ffd970);
+  width: 0%;
+  animation: fill 2.8s ease-out forwards;
+}
+@keyframes fill { to { width: var(--w); } }
+
+/* Sections */
+section { padding: 108px 0; }
+section.alt {
+  background: linear-gradient(180deg, rgba(10,13,22,1), rgba(10,13,22,0.94));
+  border-top: 1px solid rgba(238,192,80,0.1);
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--heading);
+  font-size: clamp(28px, 2.4vw, 40px);
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.18;
+  max-width: 780px;
+  letter-spacing: -0.005em;
+}
+.section-body {
+  margin-top: 22px;
+  color: rgba(242,232,208,0.72);
+  max-width: 700px;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: 0.003em;
+}
+.rule { width: 56px; height: 2px; background: var(--gold); margin: 26px 0; opacity: 0.65; }
+
+/* System */
+.sys-cards {
+  margin-top: 52px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+.sys-card {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.1);
+  border-radius: 12px; padding: 26px;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.sys-card:hover {
+  border-color: rgba(238,192,80,0.26);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+.sys-card h3 {
+  font-family: var(--heading);
+  font-size: 18px; font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.sys-card p { color: rgba(242,232,208,0.68); font-size: 14px; line-height: 1.65; }
+
+/* Pipeline */
+.pipeline-board {
+  margin-top: 52px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.pipe-col {
+  background: rgba(242,232,208,0.018);
+  border: 1px solid rgba(238,192,80,0.1);
+  border-radius: 12px; padding: 14px;
+  transition: border-color 160ms ease;
+}
+.pipe-col:hover { border-color: rgba(238,192,80,0.22); }
+.pipe-head {
+  font-family: var(--mono);
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: rgba(242,232,208,0.58);
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+  padding-bottom: 10px; margin-bottom: 12px;
+}
+.pipe-deal {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.07);
+  border-radius: 10px; padding: 12px; margin-bottom: 10px;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.pipe-deal:hover { border-color: rgba(238,192,80,0.22); transform: translateY(-2px); }
+.pipe-deal .name { font-size: 13px; font-weight: 700; color: var(--cream); letter-spacing: 0.01em; }
+.pipe-deal .meta { font-family: var(--mono); font-size: 11px; color: rgba(242,232,208,0.52); margin-top: 8px; }
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 5px 9px; border-radius: 6px;
+  margin-top: 8px;
+}
+
+/* Portfolio */
+.portfolio-grid {
+  margin-top: 52px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+.portfolio-card {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.1);
+  border-radius: 12px; padding: 24px;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.portfolio-card:hover { border-color: rgba(238,192,80,0.28); transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.portfolio-card h3 { font-family: var(--heading); font-size: 18px; font-weight: 500; color: var(--cream); letter-spacing: 0.01em; }
+.portfolio-card .indicator { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(238,192,80,0.1); }
+.stat-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); }
+.stat-value { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--cream); margin-top: 3px; }
+
+/* Process */
+.process {
+  margin-top: 52px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+}
+.step {
+  position: relative;
+  padding-top: 28px;
+}
+.step::before {
+  content: attr(data-step);
+  position: absolute; top: 0; left: 0;
+  font-family: var(--heading);
+  font-style: italic; font-weight: 500;
+  font-size: 68px;
+  color: rgba(238,192,80,0.14);
+  line-height: 1;
+}
+.step h3 { font-family: var(--heading); font-size: 18px; font-weight: 500; color: var(--cream); letter-spacing: 0.01em; }
+.step p { margin-top: 10px; color: rgba(242,232,208,0.68); font-size: 14px; line-height: 1.7; }
+
+/* Capital */
+.capital-grid { margin-top: 52px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: center; }
+.capital-list { margin-top: 22px; list-style: none; }
+.capital-list li {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(238,192,80,0.1);
+  color: rgba(242,232,208,0.82);
+  font-size: 15px; letter-spacing: 0.01em;
+}
+.capital-list li::before {
+  content: "";
+  width: 10px; height: 10px;
+  background: var(--gold); border-radius: 2px;
+  flex-shrink: 0;
+  transform: rotate(45deg);
+}
+.capital-box {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.12);
+  border-radius: 14px; padding: 28px;
+  box-shadow: var(--shadow-2);
+}
+.capital-box h3 {
+  font-family: var(--heading);
+  font-size: 18px; font-weight: 500; color: var(--cream);
+  margin-bottom: 8px;
+}
+.capital-box p { color: rgba(242,232,208,0.68); font-size: 14px; line-height: 1.7; }
+
+/* Contact */
+.contact-form {
+  margin-top: 44px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label {
+  font-family: var(--mono);
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(242,232,208,0.6);
+}
+input, select, textarea {
+  background: var(--navy-surface);
+  border: 1px solid rgba(238,192,80,0.16);
+  border-radius: 8px; padding: 13px 14px;
+  color: var(--cream);
+  font-family: var(--body); font-size: 14px;
+  outline: none; width: 100%;
+  transition: border-color var(--ease), background 160ms ease;
+}
+input::placeholder, textarea::placeholder { color: rgba(242,232,208,0.28); }
+input:hover, select:hover, textarea:hover { background: rgba(10,13,22,0.86); }
+input:focus, select:focus, textarea:focus { border-color: var(--gold); background: rgba(10,13,22,1); }
+textarea { resize: vertical; min-height: 130px; }
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+select option { background: var(--navy-surface); color: var(--cream); }
+
+/* Footer */
+footer {
+  padding: 44px 0;
+  border-top: 1px solid rgba(238,192,80,0.1);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px;
+}
+footer p { font-size: 12px; color: rgba(242,232,208,0.38); letter-spacing: 0.02em; }
+footer a { color: rgba(242,232,208,0.6); font-size: 12px; }
+footer a:hover { color: var(--gold); }
+
+/* Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1050px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+  .sys-cards, .portfolio-grid, .process, .pipeline-board { grid-template-columns: repeat(2, 1fr); }
+  .capital-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .sys-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .sys-cards, .portfolio-grid, .process, .pipeline-board, .contact-form { grid-template-columns: 1fr; }
+  section { padding: 80px 0; }
+  .hero { padding: 88px 0 80px; }
+}
+</head>
+<body>
+
+<nav>
+  <div class="max nav-inner">
+    <div class="logo">Black <mark>Gold</mark> Equity Partners</div>
+    <ul class="nav-links">
+      <li><a href="#system">System</a></li>
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#capital">Capital</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Inquire</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="max hero-grid">
+    <div class="fade-up">
+      <h1>We run companies through a <em>private AI operating system</em> — from acquisition to exit.</h1>
+      <p class="lead">Black Gold combines operational control, AI-native workflows, and institutional governance to transform businesses faster than traditional private equity.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Inquire</a>
+        <a class="btn btn-ghost" href="#system">Explore the system</a>
+      </div>
+    </div>
+
+    <div class="sys-panel fade-up" role="img" aria-label="Live command center preview showing active deals and portfolio status">
+      <div class="sys-panel-header">
+        <span>Command Center</span>
+        <div class="sys-status" aria-hidden="true">Live</div>
+      </div>
+      <div class="sys-grid" id="hero-metrics">
+        <div class="sys-tile">
+          <div class="sys-meta">Pipeline value</div>
+          <div class="sys-metric" id="m-pipeline">$—</div>
+          <div class="sys-bar"><div class="sys-bar-fill" style="--w:72%"></div></div>
+        </div>
+        <div class="sys-tile">
+          <div class="sys-meta">Active deals</div>
+          <div class="sys-metric" id="m-deals">—</div>
+          <div class="sys-bar"><div class="sys-bar-fill" style="--w:58%"></div></div>
+        </div>
+        <div class="sys-tile">
+          <div class="sys-meta">Portfolio</div>
+          <div class="sys-metric" id="m-ports">—</div>
+          <div class="sys-bar"><div class="sys-bar-fill" style="--w:84%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="system">
+  <div class="max">
+    <div class="section-label">The Edge</div>
+    <h2 class="section-title fade-up">A real operating system, not underwriting spreadsheets.</h2>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="section-body fade-up">The Black Gold system replaces outdated playbooks with one unified layer for research, outreach, diligence, integration, portfolio operations, and exit planning. Every deal, business and workflow runs inside the same system — with measurable KPIs at every step.</p>
+
+    <div class="sys-cards">
+      <div class="sys-card fade-up">
+        <h3>Research &amp; sourcing</h3>
+        <p>Automated market maps and target scoring let you spend time on the right deals instead of chasing noise.</p>
+      </div>
+      <div class="sys-card fade-up">
+        <h3>Diligence &amp; integration</h3>
+        <p>Structured diligence queues, integration milestones, and handoff protocols keep deals on track from LOI to close.</p>
+      </div>
+      <div class="sys-card fade-up">
+        <h3>Portfolio operations</h3>
+        <p>Weekly cadence, financial reporting, operational KPIs, and automated alerts are managed by specialist agents.</p>
+      </div>
+      <div class="sys-card fade-up">
+        <h3>Deal pipeline</h3>
+        <p>Every opportunity tracked by stage, probability, owner, and next action — instead of being buried in email threads.</p>
+      </div>
+      <div class="sys-card fade-up">
+        <h3>Governance &amp; compliance</h3>
+        <p>Audit logs, approval gates, document versioning, and data rooms ready for banks, regulators, and investors.</p>
+      </div>
+      <div class="sys-card fade-up">
+        <h3>Exit planning</h3>
+        <p>IRR targets, MOIC modeling, buyer identification, and transaction packaging all start on day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline" class="alt">
+  <div class="max">
+    <div class="section-label">Current opportunities</div>
+    <h2 class="section-title fade-up">Active deal flow.</h2>
+    <div class="rule" aria-hidden="true"></div>
+
+    <div class="pipeline-board" role="list" aria-label="Deal pipeline board">
+      <div class="pipe-col fade-up" role="listitem">
+        <div class="pipe-head">Sourcing</div>
+        <div class="pipe-deal">
+          <div class="name">Target Alpha</div>
+          <div class="meta">Manufacturing • Midwest</div>
+          <div class="badge" style="background:rgba(238,192,80,0.12);color:var(--gold);">$18M–$24M</div>
+        </div>
+        <div class="pipe-deal">
+          <div class="name">Target Beta</div>
+          <div class="meta">Business services • Southeast</div>
+          <div class="badge" style="background:rgba(238,192,80,0.12);color:var(--gold);">$8M–$12M</div>
+        </div>
+      </div>
+      <div class="pipe-col fade-up" role="listitem">
+        <div class="pipe-head">Due diligence</div>
+        <div class="pipe-deal">
+          <div class="name">Target Gamma</div>
+          <div class="meta">Healthcare services • Texas</div>
+          <div class="badge" style="background:rgba(167,139,250,0.12);color:var(--violet);">$22M</div>
+        </div>
+        <div class="pipe-deal">
+          <div class="name">Target Delta</div>
+          <div class="meta">Software • Remote</div>
+          <div class="badge" style="background:rgba(167,139,250,0.12);color:var(--violet);">$14M</div>
+        </div>
+      </div>
+      <div class="pipe-col fade-up" role="listitem">
+        <div class="pipe-head">LOI out</div>
+        <div class="pipe-deal">
+          <div class="name">Target Epsilon</div>
+          <div class="meta">Industrial distribution • Ohio</div>
+          <div class="badge" style="background:rgba(61,219,120,0.12);color:var(--grn);">$31M</div>
+        </div>
+      </div>
+      <div class="pipe-col fade-up" role="listitem">
+        <div class="pipe-head">Closed</div>
+        <div class="pipe-deal">
+          <div class="name">Closed 2026</div>
+          <div class="meta">3 transactions</div>
+          <div class="badge" style="background:rgba(61,219,120,0.12);color:var(--grn);">$47M volume</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="max">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Operational discipline across companies.</h2>
+    <div class="rule" aria-hidden="true"></div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card fade-up">
+        <h3>GCI Financial</h3>
+        <div class="indicator">
+          <div class="stat">
+            <div class="stat-label">Status</div>
+            <div class="stat-value">Active</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Role</div>
+            <div class="stat-value">New venture build</div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card fade-up">
+        <h3>Platform Alpha</h3>
+        <div class="indicator">
+          <div class="stat">
+            <div class="stat-label">Status</div>
+            <div class="stat-value">Active</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Focus</div>
+            <div class="stat-value">Digital transformation</div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card fade-up">
+        <h3>Portfolio reserve</h3>
+        <div class="indicator">
+          <div class="stat">
+            <div class="stat-label">Status</div>
+            <div class="stat-value">Reserve</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Deployment</div>
+            <div class="stat-value">H2 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="alt">
+  <div class="max">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">From conversation to transformation.</h2>
+    <div class="rule" aria-hidden="true"></div>
+
+    <div class="process">
+      <div class="step" data-step="1">
+        <h3>First Conversation</h3>
+        <p>Understand your business, your goals, and what success looks like — before any structure or terms.</p>
+      </div>
+      <div class="step" data-step="2">
+        <h3>Due Diligence</h3>
+        <p>Operational, financial, and cultural assessment mapped directly against our BOS readiness framework.</p>
+      </div>
+      <div class="step" data-step="3">
+        <h3>Acquisition &amp; Integration</h3>
+        <p>Close quickly, install dashboards, align ops, and begin the first 100-day transformation within weeks.</p>
+      </div>
+      <div class="step" data-step="4">
+        <h3>Build &amp; Exit</h3>
+        <p>Use our platform to grow value, mitigate risk, and position for a clean institutional exit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capital">
+  <div class="max">
+    <div class="section-label">For Investors</div>
+    <h2 class="section-title">Institutional returns with institutional governance.</h2>
+    <div class="rule" aria-hidden="true"></div>
+
+    <div class="capital-grid">
+      <div>
+        <p class="section-body">We serve LPs who believe the best returns come from operational control, not leverage alone. Black Gold is built for:</p>
+        <ul class="capital-list">
+          <li>Conservative underwriting with transparent reporting</li>
+          <li>Real-time visibility into portfolio companies</li>
+          <li>AI-assisted compliance, audit readiness, and risk control</li>
+          <li>Clear alignment on timeline, succession, and exit</li>
+        </ul>
+      </div>
+      <div class="capital-box">
+        <h3>LP Inquiry</h3>
+        <p>Request our PPM outline, model portfolio, and capital call schedule. We respond within one business day.</p>
+        <a class="btn btn-primary" href="#contact" style="margin-top:18px;">Contact Investor Relations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="alt">
+  <div class="max">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">How can we help?</h2>
+    <div class="rule" aria-hidden="true"></div>
+
+    <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="field">
+        <label for="type">Inquiry Type</label>
+        <select id="type" name="type">
+          <option value="target">Target Company</option>
+          <option value="lp">LP / Investor</option>
+          <option value="advisor">Advisor / Institutional</option>
+          <option value="press">Press / Media</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company">
+      </div>
+      <div class="field full">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required>I'm interested in discussing how Black Gold could work with my business or fund.</textarea>
+      </div>
+      <div class="field full">
+        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="max" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;width:100%;">
+    <div>
+      <div class="logo">Black <mark>Gold</mark> Equity Partners</div>
+      <p style="margin-top:6px;">Private. Purpose-built.</p>
+    </div>
+    <div style="display:flex;gap:22px;">
+      <a href="#system">System</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#process">Process</a>
+      <a href="#capital">Capital</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:rgba(242,232,208,0.35);">Black Gold Equity Partners LLC</p>
+  </div>
+</footer>
+
+<script>
+/* Hero metrics — replace these with live BOS API pulls later */
+const HERO = {
+  pipelineValue: "$128M",
+  activeDeals: "14",
+  portfolio: "6"
+};
+
+document.getElementById('m-pipeline').textContent = HERO.pipelineValue;
+document.getElementById('m-deals').textContent = HERO.activeDeals;
+document.getElementById('m-ports').textContent = HERO.portfolio;
+
+/* Contact form — integrate with /api/leads here */
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const original = btn.textContent;
+  btn.textContent = "Sending…";
+  btn.disabled = true;
+
+  setTimeout(function() {
+    btn.textContent = "Inquiry received · We will respond within one business day.";
+    btn.style.background = "var(--grn)";
+    btn.style.color = "var(--navy)";
+    btn.style.borderColor = "var(--grn)";
+    e.target.reset();
+    setTimeout(function() {
+      btn.textContent = original;
+      btn.disabled = false;
+      btn.style.background = "";
+      btn.style.color = "";
+      btn.style.borderColor = "";
+    }, 4000);
+  }, 750);
+}
+</script>
+
+</body>
+</html>

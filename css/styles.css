@@ -16,6 +16,15 @@
   --ease: 160ms cubic-bezier(0.22,0.61,0.36,1);
   --ease-out: 240ms cubic-bezier(0.22,0.61,0.36,1);
   --ease-spring: 500ms cubic-bezier(0.34,1.56,0.64,1);
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 40px;
+  --space-7: 56px;
+  --space-8: 72px;
+  --space-9: 96px;
 }
 
 /* LIGHT MODE */
@@ -128,7 +137,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   height: 68px;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .logo {
@@ -145,7 +154,7 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: var(--space-6);
   list-style: none;
   align-items: center;
 }
@@ -181,13 +190,13 @@ nav {
   font-family: var(--body);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: 1px solid rgba(238,192,80,0.85);
   color: var(--gold);
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
   transition: all var(--ease);
   position: relative;
@@ -284,7 +293,7 @@ nav {
 /* HERO */
 .hero {
   position: relative;
-  padding: 110px 0 100px;
+  padding: 120px 0 110px;
   border-bottom: 1px solid rgba(238,192,80,0.08);
   overflow: hidden;
 }
@@ -409,7 +418,7 @@ nav {
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
 
 /* SECTIONS */
-section { padding: 100px 0; position: relative; }
+section { padding: 120px 0; position: relative; }
 
 section.alt {
   background: linear-gradient(180deg, rgba(10,13,22,1), rgba(10,13,22,0.95));
@@ -518,7 +527,7 @@ section.alt::before {
   border: 1px solid rgba(238,192,80,0.1);
   border-radius: 14px;
   padding: 26px;
-  transition: border-color 180ms ease, transform 200ms ease, box-shadow 200ms ease;
+  transition: border-color 220ms ease, transform 260ms ease, box-shadow 260ms ease;
   position: relative;
   overflow: hidden;
 }
@@ -772,7 +781,7 @@ footer {
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.8, 0.36, 1);
 }
 
 .fade-up.visible { opacity: 1; transform: translateY(0); }

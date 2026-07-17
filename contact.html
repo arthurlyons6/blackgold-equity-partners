@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2304060E'/%3E%3Ccircle cx='32' cy='32' r='26.5' fill='none' stroke='%23EEC050' stroke-width='2.5'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-style='italic' font-size='24' font-weight='700' fill='%23EEC050' text-anchor='middle'%3EBG%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="canonical" href="https://blackgoldeqitypartners.com/contact.html" />
   <meta name="robots" content="index, follow" />
@@ -32,23 +33,24 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <nav>
     <div class="max nav-inner">
       <div class="logo"><a href="index.html">Black <mark>Gold</mark> Equity Partners</a></div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-menu">
         <li><a href="about.html">About</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="process.html">Process</a></li>
         <li><a href="insights.html">Insights</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
       </ul>
       <a class="nav-cta" href="contact.html">Inquire</a>
       <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <button class="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="5"/>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
         </svg>
@@ -56,17 +58,19 @@
     </div>
   </nav>
 
+  <main id="main-content">
+
   <header class="hero">
     <div class="max">
       <h1 class="fade-up">Start a <em>conversation.</em></h1>
-      <p class="lead fade-up">Select the inquiry type that fits your situation. Each message routes to the right partner and receives a response within one business day.</p>
+      <p class="lead fade-up">Pick the inquiry type that fits. Each message routes directly to the right partner — response times by type are listed below.</p>
     </div>
   </header>
 
   <section>
     <div class="max">
       <div class="section-label">Contact</div>
-      <h2 class="section-title fade-up">How can we help?</h2>
+      <h2 class="section-title fade-up">Route your inquiry.</h2>
       <div class="rule" aria-hidden="true"></div>
 
       <form class="contact-form fade-up" id="contact-form">
@@ -95,12 +99,12 @@
           </div>
           <div class="field full">
             <label for="message">Message</label>
-            <textarea id="message" name="message" required>Tell us about your business, your timeline, and what a successful outcome looks like.</textarea>
+            <textarea id="message" name="message" required placeholder="Tell us about your business, your timeline, and what a successful outcome looks like."></textarea>
           </div>
           <div class="field full">
             <button type="submit" class="btn btn-primary">Send Inquiry</button>
-            <p id="submit-status" class="form-feedback" style="margin-top:10px;">Preparing submission...</p>
-            <p id="form-note" class="form-feedback" style="margin-top:6px;">Response SLA: one business day.</p>
+            <p id="submit-status" class="form-feedback" role="status" aria-live="polite">Ready to send.</p>
+            <p id="form-note" class="form-feedback">Response SLA: by inquiry type, listed below.</p>
           </div>
         </div>
       </form>
@@ -126,12 +130,12 @@
         <div class="card fade-up">
           <h3>Investor relations</h3>
           <p>Capital structures, LP reporting, and investor communications.</p>
-          <p class="card-meta-link" style="margin-top:10px;">ir@blackgoldequitypartners.com</p>
+          <p class="card-meta-link">ir@blackgoldequitypartners.com</p>
         </div>
         <div class="card fade-up">
           <h3>Deal flow</h3>
           <p>Business owners, advisors, and intermediaries.</p>
-          <p class="card-meta-link" style="margin-top:10px;">deals@blackgoldequitypartners.com</p>
+          <p class="card-meta-link">deals@blackgoldequitypartners.com</p>
         </div>
       </div>
     </div>
@@ -156,13 +160,15 @@
     </div>
   </section>
 
+  </main>
+
   <footer>
     <div class="max footer-inner">
       <div>
         <div class="logo"><a href="index.html">Black <mark>Gold</mark> Equity Partners</a></div>
-        <p class="footer-copy" style="margin-top:8px;">Private. Purpose-built.</p>
+        <p class="footer-copy footer-tagline">Private. Purpose-built.</p>
       </div>
-      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+      <div class="footer-nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="team.html">Team</a>
@@ -190,9 +196,12 @@
         const note = document.getElementById(NOTE_ID);
         if (status) {
           status.textContent = text;
-          status.style.color = kind === 'error' ? '#fbbf24' : '#3DDB78';
+          status.classList.remove('is-ok', 'is-error', 'is-pending');
+          if (kind === 'ok') status.classList.add('is-ok');
+          else if (kind === 'error') status.classList.add('is-error');
+          else if (kind === 'pending') status.classList.add('is-pending');
         }
-        if (note) note.style.display = 'none';
+        if (note) note.hidden = true;
       }
 
       function submitLocal(payload) {
@@ -236,10 +245,10 @@
           setStatus('Submitting...', 'pending');
           const backendPromise = fetchJson(ORIGIN + '/api/contact', payload).catch((error) => ({ ok: false, status: 0, data: { message: error?.message || 'Network or CORS error.' } }));
 
-          Promise.any([backendPromise, Promise.resolve({ ok: false, status: 0, data: { message: 'Backend unreachable.' } })])
+          backendPromise
             .then((result) => {
               if (result.ok) {
-                setStatus('Sent. We respond within one business day.', 'ok');
+                setStatus('Sent. Expect a response within the SLA for your inquiry type, listed below.', 'ok');
                 form.reset();
                 return;
               }

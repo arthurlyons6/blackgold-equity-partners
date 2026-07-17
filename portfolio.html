@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — Black Gold Equity Partners</title>
   <meta name="description" content="Active portfolio holdings for Black Gold Equity Partners: integration metrics, operational status, and owner alignment.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2304060E'/%3E%3Ccircle cx='32' cy='32' r='26.5' fill='none' stroke='%23EEC050' stroke-width='2.5'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-style='italic' font-size='24' font-weight='700' fill='%23EEC050' text-anchor='middle'%3EBG%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="canonical" href="https://blackgoldeqitypartners.com/portfolio.html" />
   <meta name="robots" content="index, follow" />
@@ -31,13 +35,14 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <nav>
     <div class="max nav-inner">
       <div class="logo"><a href="index.html">Black <mark>Gold</mark> Equity Partners</a></div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-menu">
         <li><a href="about.html">About</a></li>
         <li><a href="team.html">Team</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="portfolio.html" aria-current="page">Portfolio</a></li>
         <li><a href="process.html">Process</a></li>
         <li><a href="insights.html">Insights</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -46,8 +51,8 @@
       <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <button class="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="5"/>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
         </svg>
@@ -55,10 +60,12 @@
     </div>
   </nav>
 
+  <main id="main-content">
+
   <header class="hero">
     <div class="max">
       <h1 class="fade-up">Active holdings under live metrics.</h1>
-      <p class="lead fade-up fade-up-delay-1">Portfolio status is updated from operational systems. Each tile shows status, owner, and last update.</p>
+      <p class="lead fade-up fade-up-delay-1">Status, owner, and last update on every tile — fed by operational systems, not press releases.</p>
     </div>
   </header>
 
@@ -79,7 +86,7 @@
         </article>
         <article class="card fade-up fade-up-delay-1">
           <h3>North Point Services</h3>
-          <p>Commercial maintenance and inspection platform with real-time asset tracking.</p>
+          <p>Commercial maintenance and inspection with real-time asset tracking.</p>
           <div class="card-meta">
             <span>Active</span>
             <span>Owner: M. Ruiz</span>
@@ -104,7 +111,7 @@
       <div class="section-label">Signal</div>
       <h2 class="section-title fade-up">Why this matters now</h2>
       <div class="rule" aria-hidden="true"></div>
-      <p class="section-body fade-up fade-up-delay-1">Mid-market private equity still runs on spreadsheets, email, and static reports. Black Gold replaces that with a live dashboard, agent workflows, and investor-grade transparency — cutting time-to-value and reducing integration risk.</p>
+      <p class="section-body fade-up fade-up-delay-1">Most portfolio reporting is assembled by hand each quarter. These holdings report through a live dashboard and agent workflows — investor-grade transparency that cuts integration risk.</p>
       <div class="hero-actions fade-up fade-up-delay-2">
         <a class="btn btn-primary" href="process.html">See the process</a>
         <a class="btn btn-ghost" href="contact.html">Talk to the team</a>
@@ -117,20 +124,22 @@
       <div class="section-label">Focus</div>
       <h2 class="section-title fade-up">Built for builders who need more than capital.</h2>
       <div class="rule" aria-hidden="true"></div>
-      <p class="section-body fade-up fade-up-delay-1">We look for businesses where AI implementation, disciplined operations, and founder alignment unlock durable growth. Our capital is patient, our process is transparent, and our platform is always on.</p>
+      <p class="section-body fade-up fade-up-delay-1">Every holding above fits one thesis: AI, operating discipline, and founder alignment unlock durable growth. Owners keep building; the system keeps score.</p>
       <div class="fade-up fade-up-delay-2">
-        <a class="btn btn-ghost" href="contact.html">Request operating plan</a>
+        <a class="btn btn-ghost" href="contact.html">Request the operating plan</a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer>
     <div class="max footer-inner">
       <div>
         <div class="logo"><a href="index.html">Black <mark>Gold</mark> Equity Partners</a></div>
-        <p class="footer-copy" style="margin-top:8px;">Private. Purpose-built.</p>
+        <p class="footer-copy footer-tagline">Private. Purpose-built.</p>
       </div>
-      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+      <div class="footer-nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="team.html">Team</a>
@@ -146,11 +155,5 @@
   </footer>
 
   <script src="./js/main.js"></script>
-  <script>
-    try {
-      var el = document.getElementById('submit-status');
-      if (el) el.textContent = 'SLA: routed by inquiry type.';
-    } catch (e) {}
-  </script>
 </body>
 </html>

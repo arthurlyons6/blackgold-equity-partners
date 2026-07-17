@@ -10,11 +10,18 @@
   }
 
   onReady(function () {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     /* ===== FADE / REVEAL OBSERVER ===== */
     var revealEls = document.querySelectorAll(
       ".fade-up, .reveal-left, .reveal-right, .scale-in"
     );
-    if (revealEls.length) {
+    if (revealEls.length && (reduceMotion || !("IntersectionObserver" in window))) {
+      /* Motion-sensitive users (or old browsers) get content immediately. */
+      revealEls.forEach(function (el) {
+        el.classList.add("visible");
+      });
+    } else if (revealEls.length) {
       var observer = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
@@ -82,42 +89,105 @@
     document.documentElement.setAttribute("data-theme", saved);
 
     var toggleBtns = document.querySelectorAll(".theme-toggle");
+
+    function syncThemeToggleLabels() {
+      var theme = document.documentElement.getAttribute("data-theme");
+      var label =
+        theme === "light" ? "Switch to dark theme" : "Switch to light theme";
+      toggleBtns.forEach(function (btn) {
+        btn.setAttribute("aria-label", label);
+        btn.setAttribute("title", label);
+      });
+    }
+
     toggleBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var current = document.documentElement.getAttribute("data-theme");
         var next = current === "light" ? "dark" : "light";
         document.documentElement.setAttribute("data-theme", next);
         localStorage.setItem(themeKey, next);
+        syncThemeToggleLabels();
       });
     });
+    syncThemeToggleLabels();
 
-    /* ===== PAGE TRANSITIONS (inject transition div) ===== */
-    var transitionEl = document.createElement("div");
-    transitionEl.className = "page-transition";
-    transitionEl.setAttribute("aria-hidden", "true");
-    document.body.appendChild(transitionEl);
+    /* ===== MOBILE NAV (hamburger) ===== */
+    var hamburger = document.querySelector(".hamburger");
+    var navMenu = document.querySelector(".nav-links");
+    if (hamburger && navMenu) {
+      if (!navMenu.id) navMenu.id = "nav-menu";
+      hamburger.setAttribute("aria-controls", navMenu.id);
 
-    var navLinks = document.querySelectorAll("a[href]");
-    navLinks.forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        var href = link.getAttribute("href");
-        if (
-          !href ||
-          href.startsWith("#") ||
-          href.startsWith("http") ||
-          href.startsWith("//") ||
-          href.includes("?") ||
-          href.includes("/api/")
-        ) {
-          return;
+      var setMenu = function (open) {
+        navMenu.classList.toggle("open", open);
+        hamburger.classList.toggle("active", open);
+        hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+
+      hamburger.addEventListener("click", function () {
+        setMenu(!navMenu.classList.contains("open"));
+      });
+
+      /* Close after choosing a destination */
+      navMenu.addEventListener("click", function (e) {
+        if (e.target.closest("a")) setMenu(false);
+      });
+
+      /* Escape closes and returns focus to the toggle */
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && navMenu.classList.contains("open")) {
+          setMenu(false);
+          hamburger.focus();
         }
-        e.preventDefault();
-        transitionEl.classList.add("active");
-        setTimeout(function () {
-          window.location.href = href;
-        }, 300);
       });
-    });
+
+      /* Click/tap outside the panel closes it */
+      document.addEventListener("click", function (e) {
+        if (
+          navMenu.classList.contains("open") &&
+          !e.target.closest(".nav-links") &&
+          !e.target.closest(".hamburger")
+        ) {
+          setMenu(false);
+        }
+      });
+    }
+
+    /* ===== FOOTER YEAR ===== */
+    var yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ===== PAGE TRANSITIONS (inject transition div) =====
+       Skipped entirely under prefers-reduced-motion: navigation
+       happens immediately with no overlay or artificial delay. */
+    if (!reduceMotion) {
+      var transitionEl = document.createElement("div");
+      transitionEl.className = "page-transition";
+      transitionEl.setAttribute("aria-hidden", "true");
+      document.body.appendChild(transitionEl);
+
+      var navLinks = document.querySelectorAll("a[href]");
+      navLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          var href = link.getAttribute("href");
+          if (
+            !href ||
+            href.startsWith("#") ||
+            href.startsWith("http") ||
+            href.startsWith("//") ||
+            href.includes("?") ||
+            href.includes("/api/")
+          ) {
+            return;
+          }
+          e.preventDefault();
+          transitionEl.classList.add("active");
+          setTimeout(function () {
+            window.location.href = href;
+          }, 300);
+        });
+      });
+    }
 
     /* ===== ABSOLUTE UPDATED DATES (data-updated="YYYY-MM-DD") ===== */
     var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -131,9 +201,9 @@
         "Updated " + MONTHS[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
     });
 
-    /* ===== PARALLAX ===== */
+    /* ===== PARALLAX (disabled for reduced motion) ===== */
     var parallaxEls = document.querySelectorAll(".parallax-slow, .parallax-medium");
-    if (parallaxEls.length) {
+    if (parallaxEls.length && !reduceMotion) {
       window.addEventListener(
         "scroll",
         function () {

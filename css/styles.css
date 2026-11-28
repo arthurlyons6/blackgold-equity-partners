@@ -132,7 +132,7 @@ p { margin: 0 0 1em; }
   color: transparent;
   animation: pour 5.5s cubic-bezier(.45,.05,.25,1) 0.6s 1 forwards;
 }
-@keyframes pour { to { background-position: 0% 0; } }
+@keyframes pour { to { background-position: 40% 0; } }
 
 /* ---------- Masthead ------------------------------------------------------ */
 .masthead {
@@ -372,7 +372,7 @@ address { font-style: normal; font-size: 22px; line-height: 1.45; color: var(--b
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .sheen { background-position: 30% 0; }
+  .sheen { background-position: 40% 0; }
 }
 @media print {
   .rail, .masthead, .menu-btn { display: none; }

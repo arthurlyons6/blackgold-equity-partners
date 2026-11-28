@@ -378,3 +378,6 @@ address { font-style: normal; font-size: 22px; line-height: 1.45; color: var(--b
   .rail, .masthead, .menu-btn { display: none; }
   body { background: #fff; color: #000; }
 }
+@media (max-width: 420px) {
+  .mark span { display: none; }
+}

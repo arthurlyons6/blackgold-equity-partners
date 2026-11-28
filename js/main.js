@@ -1,275 +1,133 @@
+/* Black Gold Equity Partners: site behaviour.
+   Deliberately small: mobile menu, footer year, the figures block and the contact form. */
 (function () {
   "use strict";
 
-  function onReady(cb) {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", cb);
-    } else {
-      cb();
-    }
-  }
-
-  onReady(function () {
-    /* ===== FADE / REVEAL OBSERVER ===== */
-    var revealEls = document.querySelectorAll(
-      ".fade-up, .reveal-left, .reveal-right, .scale-in"
-    );
-    if (revealEls.length) {
-      var observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-      );
-      revealEls.forEach(function (el) {
-        observer.observe(el);
-      });
-    }
-
-    /* ===== SCROLL INDICATOR ===== */
-    var indicator = document.createElement("div");
-    indicator.className = "scroll-indicator";
-    indicator.setAttribute("aria-hidden", "true");
-    document.body.appendChild(indicator);
-
-    function updateScrollIndicator() {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      indicator.style.width = pct + "%";
-    }
-
-    window.addEventListener("scroll", updateScrollIndicator, { passive: true });
-    updateScrollIndicator();
-
-    /* ===== CUSTOM CURSOR ===== */
-    var cursor = null;
-    if (
-      window.matchMedia("(pointer: fine)").matches &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      cursor = document.createElement("div");
-      cursor.className = "custom-cursor";
-      cursor.setAttribute("aria-hidden", "true");
-      document.body.appendChild(cursor);
-
-      var hoverTargets = document.querySelectorAll(
-        "a, button, .btn, .card, input, textarea, select"
-      );
-      hoverTargets.forEach(function (el) {
-        el.addEventListener("mouseenter", function () {
-          cursor.classList.add("hover");
-        });
-        el.addEventListener("mouseleave", function () {
-          cursor.classList.remove("hover");
-        });
-      });
-
-      document.addEventListener("mousemove", function (e) {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
-    }
-
-    /* ===== THEME TOGGLE ===== */
-    var themeKey = "bg-theme";
-    var saved = localStorage.getItem(themeKey) || "dark";
-    document.documentElement.setAttribute("data-theme", saved);
-
-    var toggleBtns = document.querySelectorAll(".theme-toggle");
-    toggleBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var current = document.documentElement.getAttribute("data-theme");
-        var next = current === "light" ? "dark" : "light";
-        document.documentElement.setAttribute("data-theme", next);
-        localStorage.setItem(themeKey, next);
-      });
-    });
-
-    /* ===== PAGE TRANSITIONS (inject transition div) ===== */
-    var transitionEl = document.createElement("div");
-    transitionEl.className = "page-transition";
-    transitionEl.setAttribute("aria-hidden", "true");
-    document.body.appendChild(transitionEl);
-
-    var navLinks = document.querySelectorAll("a[href]");
-    navLinks.forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        var href = link.getAttribute("href");
-        if (
-          !href ||
-          href.startsWith("#") ||
-          href.startsWith("http") ||
-          href.startsWith("//") ||
-          href.includes("?") ||
-          href.includes("/api/")
-        ) {
-          return;
-        }
-        e.preventDefault();
-        transitionEl.classList.add("active");
-        setTimeout(function () {
-          window.location.href = href;
-        }, 300);
-      });
-    });
-
-    /* ===== ABSOLUTE UPDATED DATES (data-updated="YYYY-MM-DD") ===== */
-    var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var updatedEls = document.querySelectorAll("[data-updated]");
-    updatedEls.forEach(function (el) {
-      var parts = (el.getAttribute("data-updated") || "").split("-");
-      if (parts.length !== 3) return;
-      var date = new Date(+parts[0], +parts[1] - 1, +parts[2]);
-      if (isNaN(date.getTime())) return;
-      el.textContent =
-        "Updated " + MONTHS[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
-    });
-
-    /* ===== PARALLAX ===== */
-    var parallaxEls = document.querySelectorAll(".parallax-slow, .parallax-medium");
-    if (parallaxEls.length) {
-      window.addEventListener(
-        "scroll",
-        function () {
-          var y = window.pageYOffset;
-          parallaxEls.forEach(function (el) {
-            var rate = el.classList.contains("parallax-slow") ? 0.25 : 0.45;
-            el.style.transform = "translateY(" + y * rate + "px)";
-          });
-        },
-        { passive: true }
-      );
-    }
-  });
-
-  /* Expose site API */
-  window.site = window.site || {};
-
-  /* ===== HERO METRICS ===== */
-  var HERO_METRICS = [
-    { id: "m-pipeline", label: "Pipeline value", value: "$128M", empty: "$—" },
-    { id: "m-deals", label: "Active deals", value: "14", empty: "—" },
-    { id: "m-ports", label: "Portfolio", value: "6", empty: "—" }
+  /* Public figures. Each stays hidden until a real, sourced value is entered here.
+     Set value to a string such as "$128M" and source to where it comes from.
+     Nothing on the page shows a number that is still null. */
+  var FIGURES = [
+    { key: "pipeline", label: "Qualified pipeline", value: null, source: "" },
+    { key: "deals", label: "Active deals", value: null, source: "" },
+    { key: "portfolio", label: "Portfolio companies", value: null, source: "" },
+    { key: "hitrate", label: "100-day milestones met", value: null, source: "" }
   ];
+  var FIGURES_AS_OF = ""; /* e.g. "Figures as of Dec 1, 2026" */
 
-  function bindHeroMetrics() {
-    HERO_METRICS.forEach(function (metric) {
-      var el = document.getElementById(metric.id);
-      if (el) el.textContent = metric.value || metric.empty;
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+
+  function initMenu() {
+    var head = document.querySelector(".masthead");
+    var btn = document.querySelector(".menu-btn");
+    if (!head || !btn) return;
+    btn.addEventListener("click", function () {
+      var open = head.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "Close" : "Menu";
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && head.classList.contains("open")) { btn.click(); btn.focus(); }
     });
   }
-  function resetHeroMetrics() {
-    HERO_METRICS.forEach(function (metric) {
-      var el = document.getElementById(metric.id);
-      if (el) el.textContent = metric.empty;
+
+  function initYear() {
+    var y = String(new Date().getFullYear());
+    document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = y; });
+  }
+
+  function initFigures() {
+    var section = document.querySelector("[data-figures]");
+    if (!section) return;
+    var real = FIGURES.filter(function (f) { return f.value !== null && f.value !== ""; });
+    if (!real.length) return; /* stays hidden */
+    var list = section.querySelector("[data-figures-list]");
+    real.forEach(function (f) {
+      var wrap = document.createElement("div");
+      var dd = document.createElement("dd"); dd.textContent = f.value;
+      var dt = document.createElement("dt"); dt.textContent = f.label;
+      if (f.source) dt.title = "Source: " + f.source;
+      wrap.appendChild(dd); wrap.appendChild(dt); list.appendChild(wrap);
     });
+    var note = section.querySelector("[data-figures-note]");
+    if (note) note.textContent = FIGURES_AS_OF;
+    section.hidden = false;
   }
 
-  /* ===== CONTACT FORM VALIDATION ===== */
-  var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  /* ---------- Contact form ---------- */
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  function fieldLabelText(field) {
-    var label = field.id
-      ? document.querySelector('label[for="' + field.id + '"]')
-      : null;
-    return label ? label.textContent.trim() : "This field";
+  function labelFor(field) {
+    var l = document.querySelector('label[for="' + field.id + '"]');
+    return l ? l.textContent.trim() : "This field";
   }
-
-  function fieldErrorEl(field) {
-    var errorId = (field.id || field.name || "field") + "-error";
-    var el = document.getElementById(errorId);
-    if (!el) {
-      el = document.createElement("p");
-      el.className = "field-error";
-      el.id = errorId;
-      el.hidden = true;
-      var wrap = field.closest(".field") || field.parentNode;
-      wrap.appendChild(el);
-    }
-    return el;
-  }
-
-  function setFieldError(field, message) {
-    var el = fieldErrorEl(field);
-    var ids = (field.getAttribute("aria-describedby") || "")
-      .split(/\s+/)
-      .filter(function (id) {
-        return id && id !== el.id;
-      });
-    if (message) {
-      el.textContent = message;
-      el.hidden = false;
-      field.setAttribute("aria-invalid", "true");
-      ids.push(el.id);
-    } else {
-      el.textContent = "";
-      el.hidden = true;
-      field.removeAttribute("aria-invalid");
-    }
-    if (ids.length) {
-      field.setAttribute("aria-describedby", ids.join(" "));
-    } else {
-      field.removeAttribute("aria-describedby");
-    }
-  }
-
-  function validateField(field) {
-    var value = (field.value || "").trim();
-    if (field.hasAttribute("required") && !value) {
-      return fieldLabelText(field) + " is required.";
-    }
-    if (field.type === "email" && value && !EMAIL_PATTERN.test(value)) {
-      return "Enter a valid email address.";
-    }
+  function check(field) {
+    var v = (field.value || "").trim();
+    if (field.required && !v) return labelFor(field) + " is required.";
+    if (field.type === "email" && v && !EMAIL.test(v)) return "Enter a valid email address.";
     return "";
   }
-
-  function validateForm(form) {
-    var fields = form.querySelectorAll("input, select, textarea");
-    var firstInvalid = null;
-    fields.forEach(function (field) {
-      var message = validateField(field);
-      setFieldError(field, message);
-      if (message && !firstInvalid) firstInvalid = field;
+  function setError(field, msg) {
+    var id = field.id + "-error";
+    var el = document.getElementById(id);
+    if (msg) {
+      if (!el) {
+        el = document.createElement("p");
+        el.className = "field-error"; el.id = id;
+        field.insertAdjacentElement("afterend", el);
+      }
+      el.textContent = msg;
+      field.setAttribute("aria-invalid", "true");
+      field.setAttribute("aria-describedby", ((field.getAttribute("aria-describedby") || "").replace(id, "").trim() + " " + id).trim());
+    } else {
+      if (el) el.remove();
+      field.removeAttribute("aria-invalid");
+      var d = (field.getAttribute("aria-describedby") || "").replace(id, "").trim();
+      if (d) field.setAttribute("aria-describedby", d); else field.removeAttribute("aria-describedby");
+    }
+  }
+  function validate(form) {
+    var first = null;
+    form.querySelectorAll("input, select, textarea").forEach(function (f) {
+      var m = check(f); setError(f, m); if (m && !first) first = f;
     });
-    if (firstInvalid) firstInvalid.focus();
-    return !firstInvalid;
+    if (first) first.focus();
+    return !first;
   }
 
-  function initContactFormValidation() {
+  function initForm() {
     var form = document.getElementById("contact-form");
     if (!form) return;
-    form.setAttribute("novalidate", "");
-    /* Capture on document so invalid submits are stopped before the
-       page-level submit handler runs; valid submits pass through. */
-    document.addEventListener(
-      "submit",
-      function (event) {
-        if (event.target !== form) return;
-        if (!validateForm(form)) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-      },
-      true
-    );
-    form.addEventListener("input", function (event) {
-      var field = event.target;
-      if (field && field.getAttribute("aria-invalid") === "true") {
-        setFieldError(field, validateField(field));
-      }
+    var status = document.getElementById("submit-status");
+    var button = form.querySelector('button[type="submit"]');
+    function say(text, kind) { if (status) { status.textContent = text; status.dataset.kind = kind || ""; } }
+
+    form.addEventListener("input", function (e) {
+      if (e.target.getAttribute("aria-invalid") === "true") setError(e.target, check(e.target));
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!validate(form)) { say("Check the highlighted fields.", "error"); return; }
+      function val(n) { var el = form.elements.namedItem(n); return el ? String(el.value || "").trim() : ""; }
+      var payload = { name: val("name"), email: val("email"), type: val("type"), company: val("company"), message: val("message") };
+      button.disabled = true;
+      say("Sending…");
+      fetch(window.location.origin + "/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        say("Sent. We'll reply within the response time shown for your inquiry type.", "ok");
+        form.reset();
+      }).catch(function () {
+        say("This didn't send. Email deals@blackgoldequitypartners.com and we'll pick it up from there.", "error");
+      }).then(function () { button.disabled = false; });
     });
   }
 
-  onReady(initContactFormValidation);
-
-  window.site.resetHeroMetrics = resetHeroMetrics;
-  window.site.bindHeroMetrics = bindHeroMetrics;
-  window.site.validateForm = validateForm;
+  ready(function () { initMenu(); initYear(); initFigures(); initForm(); });
 })();
